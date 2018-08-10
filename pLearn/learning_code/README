@@ -1,0 +1,70 @@
+Created by: Arjun Gupta
+Date: December 4th 2017
+
+This directory contains all the scripts to run build and train a reinforcement
+learning algorithm and output a table that can be read in by BHV_Input. Run
+"python reinforce.py false" to begin training a new model with parameters
+defined in Constants.py.
+
+File structure:
+
+- Scripts for Learning:
+
+    --> "Constants.py" - contains all major constants used by the learning
+    	module.This includes indeces for where values are in the state
+	representation, speeds, headings, reference files for scripts, as well
+	as files to read and write data to. This is where major program
+	parameters can be set and will be carried through to the other scripts
+	(although for some changes the other scripts will also have to be
+	modified)
+
+    --> "Reinforce.py" - This is the main piece of code that is called to
+	build and train the learning agent. It makes the statespace, actionspace
+	, and the reward function to be passed to the learning agent. It then
+	intitialize and trains the agent based on the paramters given in
+	Constants.py. Call with "load" flag to load in parameters from the
+	designated directory in Constatns.py, "new" to make a new model, and
+	"test" to output an optimal table of values, and call "./run.sh" to see
+	how the model is doing
+
+    --> "DeepLearn.py" - Defines the deep_learn class which provides
+	functions for initializing and training a deep reinforcement learning
+	algorithm using keras. Constants used throughout the code are derived
+	from Constants.py. Requires that the computer has Keras, Tensorflow,
+	and Matplotlib installed
+
+- Scripts for running simulations:
+
+    --> "tester.sh" - Runs the simulation for a set amount of time and then
+    	kills it. Then aloggreps the relavant MOOSLogs for INP_STAT to get
+	state and action information and writes the resulting .csv to "results/"
+    
+    --> "launch_ED_FI.sh" - Launches the simulation with Felix on the red team
+    	exhibiting the behavior that implements the outputted table.
+
+    --> "run.sh" - simple script to run a simulation with the current table
+    	and pMarineViewer running
+    
+- Scripts for parsing simulation data:
+
+    --> "log_converter.py" - Extracts important information from files in the
+    	in the "results/" directory and writes it to a new file in the
+	processed directory. (these can be changed in the Constants.py file to
+	be different directories)
+    
+- Directories
+
+  --> "models/" - holds the saved models that have been trained
+  
+  --> "paths/"	- holds the information about previous paths that we have
+      seen in simulation as a check to see that we are getting the right data
+      
+  --> "processed/" - holds processed data from simulations
+  
+  --> "results/" - raw grepped data from simulations
+
+- Outputs
+
+  --> "table.csv" - outputted table to be read by BHV_Input
+  
+  --> "interpreted.csv" - what BHV_Input interpreted out table as (for checking)

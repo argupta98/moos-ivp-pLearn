@@ -1,0 +1,18 @@
+Written by: Arjun Gupta
+Date: December 4, 2017
+
+This folder contains code to execute reinforcement learning based behavior
+generation. Format:
+
+-->"learning_code" contains all the scripts and files necessary to build and
+    train a reinforcement learning model
+
+--> "simulation_engine" contains launch scripts and infrastructure to run the
+    simulations called by the scripts contained within learning code
+
+--> Not Included in this folder is the source code for BHV_Input which is used
+    to run the trained model in simulation by taking in a table. That can be
+    found under moos-ivp-argupta/src/lib_behavior-test/
+
+For more specific information for each folder, reference the README within
+that folder.

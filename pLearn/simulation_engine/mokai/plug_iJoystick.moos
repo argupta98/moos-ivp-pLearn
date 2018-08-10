@@ -1,0 +1,8 @@
+ProcessConfig = iJoystick
+{
+  AppTick       = 20
+  CommsTick     = 20
+  Output_Prefix = JOY$(JOY_ID)
+  Dependent     = 0,1
+  ID_BY_BUTTON  = $(BUTTON)
+}

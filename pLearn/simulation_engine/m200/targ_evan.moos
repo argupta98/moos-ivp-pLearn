@@ -1,0 +1,312 @@
+ServerHost = localhost
+ServerPort = 9005
+Community  = evan
+
+MOOSTimeWarp = 4
+
+LatOrigin  = 42.358436
+LongOrigin = -71.087448
+
+
+//------------------------------------------------------------
+ProcessConfig = ANTLER
+{
+  MSBetweenLaunches = 100
+
+  Run = MOOSDB             @ NewConsole = false
+  Run = uProcessWatch      @ NewConsole = false
+  Run = pShare             @ NewConsole = false
+  Run = pLogger            @ NewConsole = false
+  Run = pNodeReporter      @ NewConsole = false
+  Run = pMarinePID         @ NewConsole = false
+  Run = pHelmIvP           @ NewConsole = false
+  Run = pBasicContactMgr   @ NewConsole = false
+  Run = pHostInfo          @ NewConsole = false
+  Run = uFldNodeBroker     @ NewConsole = false
+  Run = pDeadManPost       @ NewConsole = false
+  Run = uSimMarine         @ NewConsole = false
+  Run = uFldMessageHandler @ NewConsole = false
+  Run = pRangeEvent        @ NewConsole = false
+  Run = pBotDialog         @ NewConsole = false
+  Run = pNodeReportParse   @ NewConsole = false
+}
+
+//--------------------------------------------------------
+ProcessConfig = iM200
+{
+  AppTick        = 10
+  CommsTick      = 10
+
+  PORT_NUMBER    = 29500
+  IP_ADDRESS     = 192.168.5.1  // Default is 'localhost'
+  GPS_PREFIX     = NAV_        // Prepended to GPS position messages.
+  DIRECT_THRUST  = false       // Default is false.
+                               // When true, vehicle in direct-thrust mode.
+                               // When false, vehicle in rudder-thrust mode.
+
+  HEADING_OFFSET = 0.0         // Offset to add to published heading
+	
+  PUBLISH_RAW    = true        // When true, publish all messages from
+                               // front seat to M200_RAW_NMEA
+  MAX_RUDDER     = 50.0        // Rudder value will be capped to this, +/-
+  MAX_THRUST     =  84.0       // Thrust value to each motor will be
+                               // capped to this value, +/-
+}
+
+
+//---------------------------------------------------------
+	// pShare Configuration Block
+	
+	ProcessConfig = pShare
+{
+  AppTick    = 2
+  CommsTick  = 2
+
+  input = route =  localhost:9305
+//  input = route =  multicast_7
+}
+
+
+//------------------------------------------
+ProcessConfig = pDeadManPost
+{
+  AppTick   = 4
+  CommsTick = 4
+
+  heartbeat_var   = HEARTBEAT
+  max_noheart     = 15
+  post_policy     = reset
+  active_at_start = false
+  deadflag        = DEPLOY = false
+ }
+
+
+//--------------------------------------------------
+ProcessConfig = pLogger
+{
+  AppTick     = 10
+  CommsTick   = 10
+
+  File    = LOG_EVAN
+  PATH    = ./
+  SyncLog   = true @ 0.2
+  AsyncLog   = true
+  FileTimeStamp = true
+
+  Log = IVPHELM_LIFE_EVENT @ 0 nosync
+  Log = VISIT_POINT	   @ 0
+  Log = BHV_WARNING	   @ 0
+  // Log it all!!!!!
+  LogAuxSrc = true
+  WildCardLogging = true
+  WildCardOmitPattern = *_STATUS
+  WildCardOmitPattern = DB_VARSUMMARY
+  WildCardOmitPattern = DB_RWSUMMARY
+}
+
+
+//---------------------------------------
+ProcessConfig = pNodeReporter
+{
+  AppTick     = 2
+  CommsTick   = 2
+
+  vessel_type = kayak
+  group       = blue
+  platform_color = blue
+}
+
+
+//---------------------------------------
+ProcessConfig = pMarinePID
+{
+  AppTick    = 10
+  CommsTick  = 10
+
+  VERBOSE       = true
+  DEPTH_CONTROL = false
+  ACTIVE_START  = true
+
+  // Yaw PID controller
+  // Yaw PID controller (Set for M200)
+  YAW_PID_KP             = 0.35 // 0.4  sim, m200
+  YAW_PID_KD             = 0.07 // 0.1
+  YAW_PID_KI             = 0.0  // 0.0
+  YAW_PID_INTEGRAL_LIMIT = 0.07 // 0.07
+
+
+  // Speed PID controller
+  SPEED_PID_KP           = 1.0
+  SPEED_PID_KD           = 0.0
+  SPEED_PID_KI           = 0.0
+  SPEED_PID_INTEGRAL_LIMIT = 0.07
+
+  // Maximums
+  MAXRUDDER  = 100 // 100
+  MAXTHRUST  = 84
+
+  // A non-zero SPEED_FACTOR overrides use of SPEED_PID
+  // Will set DESIRED_THRUST = DESIRED_SPEED * SPEED_FACTOR
+  //SPEED_FACTOR = 20
+}
+
+
+//---------------------------------------
+ProcessConfig = pHelmIvP
+{
+  AppTick    = 4
+  CommsTick  = 4
+
+ // ivp_behavior_dirs = /home/gupta/moos-ivp/lib
+  Behaviors    = targ_evan.bhv
+  Verbose      = false
+  Domain       = course:0:359:360
+  Domain       = speed:0:2.5:26
+}
+
+
+//--------------------------------------------------
+ProcessConfig = pHostInfo
+{
+  AppTick     = 1
+  CommsTick   = 1
+
+  DEFAULT_HOSTIP = localhost
+}
+
+
+//--------------------------------------------------
+ProcessConfig = uFldNodeBroker
+{
+  AppTick   = 1
+  CommsTick = 1
+
+//#ifdef SIM
+  TRY_SHORE_HOST = pshare_route=localhost:9300
+//#else
+//  TRY_SHORE_HOST = pshare_route=192.168.1.226:9300
+//  TRY_SHORE_HOST = pshare_route=192.168.1.157:9300
+//  TRY_SHORE_HOST = pshare_route=192.168.1.155:9300
+//#endif
+
+  BRIDGE = src=VIEW_POLYGON
+  BRIDGE = src=VIEW_POINT
+  BRIDGE = src=VIEW_SEGLIST
+  BRIDGE = src=VIEW_CIRCLE
+  BRIDGE = src=AVDCOL_MODE
+  BRIDGE = src=FLAG_GRAB_REQUEST
+  BRIDGE = src=TAG_REQUEST
+  BRIDGE = src=APPCAST
+  BRIDGE = src=NODE_REPORT_LOCAL, alias=NODE_REPORT //_evan
+  BRIDGE = src=NODE_MESSAGE_LOCAL, alias=NODE_MESSAGE
+}
+
+
+//--------------------------------------------------
+ProcessConfig = uFldMessageHandler
+{
+  AppTick   = 3
+  CommsTick = 3
+
+  STRICT_ADDRESSING = true
+}
+
+
+//--------------------------------------------------------
+ProcessConfig = uProcessWatch
+{
+  AppTick   = 2
+  CommsTick = 2
+
+  ALLOW_RETRACTIONS = true
+
+  WATCH_ALL = true // default is true
+
+  NOWATCH = uMAC*
+  NOWATCH = uXMS*
+  NOWATCH = uPokeDB*
+
+  WATCH         = pNodeReporter
+  WATCH         = pMarinePID
+  WATCH         = pHelmIvP
+  // WATCH         = iM200
+  WATCH         = pShare
+  SUMMARY_WAIT  = 12
+}
+
+
+//--------------------------------------------------------
+ProcessConfig = pBasicContactMgr
+{
+  AppTick   = 2
+  CommsTick = 2
+
+  decay = 30,60
+  //decay = 2,5  // Don't really want extrapolation here
+
+  alert_verbose = true
+
+  contact_max_age = 3600
+  display_radii   = false
+
+  default_alert_range = 50
+  default_cpa_range   = 35
+  default_alert_range_color = gray70
+  default_cpa_range_color   = gray30
+
+
+  Alert = id=trail, var=TRAIL_INFO, val="name=$[VNAME] # contact=mokai", alert_range=140
+}
+
+
+//------------------------------------------------------
+// uSimMarine Configuration Block  (Created from plugin)
+
+ProcessConfig = uSimMarine
+{
+  AppTick   = 10
+  CommsTick = 10
+
+  START_POS = -66,-68
+  PREFIX    = NAV
+
+  //rotate_speed = 0.012
+  //drift_x      = 0.0045
+
+  //thrust_map = -100:-2, 0:0, 20:1, 40:2, 60:3, 80:5, 100:5
+  //thrust_map = -100:-2, 0:0, 20:1, 40:2, 60:3, 80:5, 100:5
+}
+
+
+//------------------------------------------------
+// pRangeEvent config block
+
+ProcessConfig = pRangeEvent
+{
+  AppTick   = 4
+  CommsTick = 4
+
+  // Range within which the event is triggered
+  min_range = 0 // default
+  max_range = 10 // default
+
+  ignore_group = blue
+
+  event_var = TAG_REQUEST=vname=$[SELFVNAME]
+}
+
+
+//------------------------------------------------
+ProcessConfig = pBotDialog
+{
+  AppTick   = 4
+  CommsTick = 4
+
+}
+
+
+ProcessConfig = pNodeReportParse
+{
+  AppTick  = 4
+  CommsTick= 4
+}

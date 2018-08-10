@@ -1,0 +1,6 @@
+ProcessConfig = pGenPath
+{
+ AppTick	=4
+ CommsTick	=4
+ start_point 	= $(START_POS)
+}

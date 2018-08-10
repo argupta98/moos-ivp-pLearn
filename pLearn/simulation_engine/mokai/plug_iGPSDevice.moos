@@ -1,0 +1,34 @@
+//------------------------------------------
+ProcessConfig = iGPSDevice
+{
+  AppTick    = 10              // Ticks should be set to a value equal to or
+  CommsTick  = 10              // greater than the GPS output frequency
+
+//  Port            = ./GPSDEVICE  // Fully-qualified path to the serial port
+  Port            = /dev/GPSUBLOX // Fully-qualified path to the serial port
+
+  BaudRate        = 19200      // Serial port baud rate
+  PREFIX          = NAV_       // Prepends this to all GPS publications
+  HEADING_SOURCE  = compass    // none or blank: no published GPS heading
+                               // gprmc: heading is published from $GPRMC
+                               // compass: heading is published, source is
+                               //            from COMPASS_HEADING message
+                               // pashr: heading is published from $PASHR
+                               //        When no heading from $PASHR, uses
+                               //        COMPASS_HEADING, if available
+  HEADING_OFFSET  = 0.0        // If publishing heading, this offset value
+                               //   will be added to heading when published.
+  PUBLISH_UTC     = false      // If true, publishes UTC time from the GPS
+  PUBLISH_HPE     = false      // If true, publishes horiz. position error
+  PUBLISH_HDOP    = false      // If true, publishes HDOP
+  PUBLISH_YAW     = false      // If ture, publish yaw (if available)
+  PUBLISH_RAW     = false      // If true, publish all nmea sentences to
+                               //   MOOS message NMEA_FROM_GPS
+  PUBLISH_PITCH_ROLL = false   // If true, publish pitch and roll (if avail)
+  SWAP_PITCH_ROLL = false      // If true, swaps pitch and roll values.
+  TRIGGER_MSG     = gpgga      // Accumulates data from all incoming
+                               //   NMEA_MSGs but only publishes when the
+                               //   trigger is received.
+                               //   No trigger when not defined, blank, or
+                               //   set to 'NONE'
+}

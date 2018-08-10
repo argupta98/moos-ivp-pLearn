@@ -1,0 +1,8 @@
+relative=False
+num_states=12
+players=evan
+state=lowerBound type+distance bucket+1 var+lowerBound var_mod+self index+8 vehicle+self,enemy_dist type+distance bucket+1 var+player var_mod+self index+9 vehicle+evan,enemy_heading type+raw bucket+1 var+heading var_mod+self index+11 vehicle+evan,color type+binary bucket+1 var+team var_mod+self index+4 vehicle+self,rightBound type+distance bucket+1 var+rightBound var_mod+self index+6 vehicle+self,leftBound type+distance bucket+1 var+leftBound var_mod+self index+5 vehicle+self,upperBound type+distance bucket+1 var+upperBound var_mod+self index+7 vehicle+self,flag_dist type+distance bucket+1 var+flag var_mod+enemy index+1 vehicle+self,enemy_angle type+angle bucket+1 var+player var_mod+self index+10 vehicle+evan,flag_theta type+angle bucket+1 var+flag var_mod+enemy index+2 vehicle+self,heading type+raw bucket+1 var+heading var_mod+self index+3 vehicle+self,out type+binary bucket+1 var+tagged var_mod+self index+0 vehicle+self
+model_address=/home/arjun/moos-ivp-argupta/pLearn/learning_code/examples/Simple_Opponent_BHV/topModel/
+actions=(2, 0):(2, 60):(2, 120):(2, 180):(2, 240):(2, 300)
+optimal=True
+epsilon=0

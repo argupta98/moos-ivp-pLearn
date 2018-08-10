@@ -1,0 +1,23 @@
+//------------------------------------------------
+ProcessConfig = uDialogManager
+{
+  AppTick   = 4
+  CommsTick = 4
+
+  sentence = $(TEAMMATE)_Deploy : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = DEPLOY,string_val = true" + NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = MOOS_MANUAL_OVERRIDE,string_val = false"
+  sentence = $(TEAMMATE)_Return : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = RETURN,string_val = true"
+
+  sentence = $(TEAMMATE)_Follow    : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = RETURN,string_val = false" + NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = ACTION,string_val = TRAIL"
+  sentence = $(TEAMMATE)_Station   : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = RETURN,string_val = false" + NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = ACTION,string_val = STATION"
+  sentence = $(TEAMMATE)_Cover     : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = RETURN,string_val = false" + NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = ACTION,string_val = COVER"
+  sentence = $(TEAMMATE)_Intercept : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = RETURN,string_val = false" + NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = ACTION,string_val = INTERCEPT"
+  sentence = $(TEAMMATE)_Defend    : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = RETURN,string_val = false" + NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = ACTION,string_val = DEFEND"
+  sentence = $(TEAMMATE)_Attack    : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = RETURN,string_val = false" + NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = ACTION,string_val = ATTACK"
+  sentence = $(TEAMMATE)_Left    : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = RETURN,string_val = false" + NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = ACTION,string_val = ATTACK_LEFT"
+  sentence = $(TEAMMATE)_Right    : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = RETURN,string_val = false" + NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name = ACTION,string_val = ATTACK_RIGHT"
+
+  sentence = $(TEAMMATE)_Status    : NODE_MESSAGE_LOCAL = "src_node = $(VNAME),dest_node = $(TEAMMATE),var_name=BOT_DIALOG_REQUEST,string_val=STATUS:src=$(VNAME)"
+
+  sentence = tag  : TAG_REQUEST       = "vname = $(VNAME)"
+  sentence = grab { NOCONFIRM } : FLAG_GRAB_REQUEST = "vname = $(VNAME)"
+}

@@ -1,0 +1,23 @@
+0	[<s>]	sil
+1	[</s>]	sil
+2	[EVAN]	eh v ah n
+2	[FELIX]	f iy l ih k s
+2	[GUS]	g ah s
+2	[HAL]	hh ae l
+2	[IDA]	ay d ah
+2	[JING]	jh ih ng
+2	[TEAM]	t iy m
+3	[RETURN]	r ih t er n
+3	[DEPLOY]	d ih p l oy
+3	[FOLLOW]	f aa l ow
+3	[STATION]	s t ey sh ah n
+3	[ATTACK]	ah t ae k
+3	[LEFT]	l eh f t
+3	[RIGHT]	r ay t
+3	[DEFEND]	d ih f eh n d
+3	[COVER]	k ah v er
+3	[STATUS]	s t ae t ah s
+4	[YES]	y eh s
+4	[NO]	n ow
+5	[TAG]	t ae g
+5	[GRAB]	g r ae b
