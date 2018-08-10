@@ -11,15 +11,15 @@ autonomy library
 
 The directory structure for the moos-ivp-extend is decribed below:
 
-bin              - Directory for generated executable files
-build            - Directory for build object files
-build.sh         - Script for building moos-ivp-extend
-CMakeLists.txt   - CMake configuration file for the project
-lib              - Directory for generated library files
-README           - Contains helpful information - (this file).
-src              - Directory for source code
-pLearn		 - Directory for Reinforcement Learning 
-docs		 - Contains Documentation and Instructions for using pLearn toolbox
+-bin: Directory for generated executable files
+-build: Directory for build object files
+-build.sh: Script for building moos-ivp-pLearn
+-CMakeLists.txt: CMake configuration file for the project
+-lib: Directory for generated library files
+-README: Contains helpful information - (this file).
+-src: Directory for source code
+-pLearn: Directory for Reinforcement Learning 
+-docs: Contains Documentation and Instructions for using pLearn toolbox
  
 
 
