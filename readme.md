@@ -1,47 +1,36 @@
-##############################################################################
-# FILE:        moos-ivp-internship/README
-# DATE:        2017/08/06
-# DESCRIPTION: Contains important information regarding the moos-ivp-internship
-#              repository.
-##############################################################################
 
-#=============================================================================
+# MOOS-IvP pLearn
+# Author: Arjun Gupta
+
 # Introduction
-#=============================================================================
-The moos-ivp-internship repository is an extension of the moos-ivp-extend
-repository,which contains examples for extending the MOOS-IvP Autonomy system.
-This tree originally included a MOOS application and an IvP behavior. The
-moos-ivp-internship tree was written by Arjun Gupta on top of the moos-ivp-extend
-tree. The vast majority of code written in this repository is the work of Arjun
-Gupta. The main folders with original code are the missions folder and the
-src folder. 
 
-#=============================================================================
+The moos-ivp-pLearn repository is an extension of MOOS-IvP, a powerful marine
+autonomy library
+
 # Directory Structure
-#=============================================================================
+
 The directory structure for the moos-ivp-extend is decribed below:
 
 bin              - Directory for generated executable files
 build            - Directory for build object files
 build.sh         - Script for building moos-ivp-extend
 CMakeLists.txt   - CMake configuration file for the project
-data             - Directory for storing data
 lib              - Directory for generated library files
-missions         - Directory for mission files
 README           - Contains helpful information - (this file).
-scripts          - Directory for script files
 src              - Directory for source code
-
-#=============================================================================
+pLearn		 - Directory for Reinforcement Learning 
+docs		 - Contains Documentation and Instructions for using pLearn toolbox
  
 
 
-#=============================================================================
 # Build Instructions
-#=============================================================================
-#--------------------
+
+The pLearn toolbox has many dependencies, including MOOS-IvP and Python2.7.
+Please view the docs directory for a detailed explanation of how to setup the build
+environment before continuing.
+
+
 # Linux and Mac Users
-#--------------------
 
 To build on Linux and Apple platforms, execute the build script within this
 directory:
@@ -58,9 +47,9 @@ within this directory:
    $ cd ..
 
 
-#--------------
+
 # Windows Users
-#--------------
+
 To build on Windows platform, open CMake using your favorite shortcut. Then 
 set the source directory to be this directory and set the build directory
 to the "build" directory inside this directory.
@@ -75,9 +64,9 @@ Alternatively, CMake can be invoked via the command line. However, you must
 specify your gernerator. Use "cmake --help" for a list of generators and
 additional help.
 
-#=============================================================================
+
 # Environment variables
-#=============================================================================
+
 The moos-ivp-extend binaries files should be added to your path to allow them
 to be launched from pAntler. 
 
@@ -85,7 +74,4 @@ In order for generated IvP Behaviors to be recognized by the IvP Helm, you
 should add the library directory to the "IVP_BEHAVIOR_DIRS" environment 
 variable.
 
-##############################################################################
-#                               END of README
-##############################################################################
 
