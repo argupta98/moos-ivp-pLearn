@@ -1,0 +1,102 @@
+
+\documentclass[onecolumn,letterpaper,11pt]{article}
+\usepackage{seqsplit}
+%===================================================================
+\input{common/common_latex_packages}
+\input{common/common_latex_definitions}
+\input{common/common_latex_help_format}
+%===================================================================
+
+\begin{document}
+	
+	\begin{labcover}
+		\labtitle{BHV Input: Implementing Learned Behaviors}
+		\vspace{0.1in}
+		\labdate{Spring 2018}
+		\vspace{0.1in}
+		\labauth{Arjun Gupta, argupta@mit.edu}
+		\labauth{Department of Computer Science}
+		\labauth{MIT, Cambridge MA 02139}
+		\labtoc{small}
+	\end{labcover}
+	
+	\wikidoc{file=PavLab.BHV\_Input}
+	\wikidoc{bugz=BHV\_Input}
+	\wikidoc{auth=argupta@mit.edu}
+	
+	%=================================================================
+	\section{BHV Input: Implementing Learned Behaviors}
+	%=================================================================
+	\label{bhvInput}
+	\index{bhvInput}
+	
+	The goal of the \app{BHV Input} is to allow for automatic, intelligent behavior creation to aid in the Aquaticus project of capture the flag. This behavior allows the user to load in arbitrary reinforcement learning models using a python script that is embedded in the behavior. The behavior can use these models to approximate the best action for any given state the robot is in. 
+	
+	%====================================================================
+	\section{BHV Input Dependencies}
+	%======================================================================
+	
+	Prior to using the \app{BHV Input} Learning platform, the following dependencies must be installed.
+	
+	%======================================================================
+	\subsection{MAC OS X and Ubuntu}
+	
+	This platform requires Python2.7 (comes pre-installed on recent MacOS) as well
+	as a number of Python packages. If you are not running on MacOS and do not
+	already have Python2.7 installed, you can download it here:
+	
+	\vspace{0.15in}
+	https://www.python.org/downloads/release/python-2714/
+	\vspace{0.15in}
+	
+	You will also need the python 2.7 development package in order for it to be embedded in C++. You can install this using macports as follows.
+	
+\vspace{0.15in}
+\begin{fileverb} 
+$ sudo port install python2.7-dev
+\end{fileverb}
+\vspace{0.15in}
+		
+		
+For Ubuntu users, you can run a similar command using apt-get.
+		
+\vspace{0.15in}
+\begin{fileverb} 
+$ sudo apt-get install python2.7-dev
+\end{fileverb}
+\vspace{0.15in}
+	
+	After Python has been successfully installed, run the following commands in order to install the python dependencies:
+	
+	\vspace{0.15in}
+	\begin{fileverb} 
+$ pip install numpy
+$ pip install matplotlib
+$ pip install tensorflow
+$ pip install keras
+	\end{fileverb}
+	\vspace{0.15in}
+	
+	
+	
+	
+	%======================================================================
+	\section{Configuration Parameters}
+	%======================================================================
+	
+	Unlike traditional behaviors, the parameters for \app{BHV Input} are primarily set in the configuration file, \texttt{table.csv}, which is output by the machine learning platform. All important information for the behavior is contained in the configuration file and taken from local node reports. 
+	
+	%======================================================================
+	\section{Variables Published}
+	%======================================================================
+	
+	Publishes \mvar{INP\_STAT} which contains infomation about the current state and action taken at that state which can be parsed and used as training data for the learning algorithms. Also publishes \mvar{GRAB\_REQUEST} when within range of the flag to automatically capture the flag. 
+	
+	%=======================================================================
+	\section{Functionality} 
+	%=======================================================================
+	
+	The behavior initializes by reading in the \texttt{table.csv}, which needs to be in the same directory as the \texttt{.bhv} file that is executing \var{BHV Input}, to get information about state setup parameters, heading mode, whether it is optimal or not, and the absolute path to the model. It initializes the embedded python script using the \app{python} utility and then loads the models from the given directory into a python object. That object is then used for the duration of the behavior to find the optimal action. On each iteration, the behavior reads in information from the environment and crafts a state vector containing the necessary, ordered, state information and passes it to the embedded python script to predict which action it should take. The Behavior finally takes the action, which consists of a speed and a heading, and sets those values as the peak of the IvP function that it outputs. 
+	
+\end{document}
+
