@@ -16,7 +16,6 @@ INCLUDE_DIRECTORIES(${LOCAL_LIBRARY_DIRS})
 #============================================================================
 ADD_SUBDIRECTORY(lib_behaviors-test)
 ADD_SUBDIRECTORY(lib_python)
-ADD_SUBDIRECTORY(pPointAssign)
 
 ##############################################################################
 #                           END of CMakeLists.txt
