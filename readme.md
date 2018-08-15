@@ -18,7 +18,7 @@ The directory structure for the moos-ivp-extend is decribed below:
 - **lib:**            Directory for generated library files
 - **README:**         Contains helpful information - (this file).
 - **src:**            Directory for source code
-- **pLearn:**         Directory for Reinforcement Learning 
+- **pLearn:**         Directory for Reinforcement Learning scripts
 - **docs:**           Contains Documentation and Instructions for using pLearn toolbox
  
 
@@ -26,7 +26,7 @@ The directory structure for the moos-ivp-extend is decribed below:
 ## Build Instructions
 
 The pLearn toolbox has many dependencies, including MOOS-IvP and Python2.7.
-Please view the docs directory for a detailed explanation of how to setup the build
+Please view the [documentation](docs/Reinforcement-Documentation/pLearn.pdf) for a detailed explanation of how to setup the build
 environment before continuing.
 
 
@@ -41,6 +41,7 @@ To build without using the supplied script, execute the following commands
 within this directory:
 ```
    $ mkdir -p build
+   $ mkdir lib
    $ cd build
    $ cmake ../
    $ make
