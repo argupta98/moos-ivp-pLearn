@@ -26,7 +26,7 @@ The directory structure for the moos-ivp-extend is decribed below:
 ## Build Instructions
 
 The pLearn toolbox has many dependencies, including MOOS-IvP and Python2.7.
-Please view the [documentation](docs/Reinforcement-Documentation/pLearn.pdf) for a detailed explanation of how to setup the build
+Please view the [documentation](docs/Documentation/pLearn.pdf) for a detailed explanation of how to setup the build
 environment before continuing.
 
 
