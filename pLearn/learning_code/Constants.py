@@ -56,10 +56,10 @@ class Constants:
       self.state["heading"]=State(index=3, typ="raw", var="heading", rang=(0, 360))
       self.state["color"]= State(index=4, typ="binary", var="team", var_mod="self")
 
-      self.state["leftBound"] = State(index=5, typ="distance", rang = (0, 200), var="leftBound", var_mod="self");
-      self.state["rightBound"] = State(index=6, typ="distance", rang = (0, 200), var="rightBound", var_mod="self");
-      self.state["upperBound"] = State(index=7, typ="distance", rang = (0, 200), var="upperBound", var_mod="self");
-      self.state["lowerBound"] = State(index=8, typ="distance", rang = (0, 200), var="lowerBound", var_mod="self");
+      self.state["leftBound"] = State(index=5, typ="distance", var="leftBound", var_mod="self");
+      self.state["rightBound"] = State(index=6, typ="distance", var="rightBound", var_mod="self");
+      self.state["upperBound"] = State(index=7, typ="distance", var="upperBound", var_mod="self");
+      self.state["lowerBound"] = State(index=8, typ="distance", var="lowerBound", var_mod="self");
 
       self.state["enemy_dist"]= State(index=9, typ="distance", var="player", rang=(0, 200), vehicle="evan")
       self.state["enemy_angle"]=State(index=10, typ="angle", var="player", rang=(0,360), vehicle="evan")
@@ -101,21 +101,20 @@ class Constants:
 
       ----------------------------------------------------------------------"""
       
-      self.num_layers= 4
-      self.num_units = 15
+      self.num_layers= 2
+      self.num_units = 10
       self.num_traj = 1
-      self.iters = 2000
-      self.lr = .001
-      self.training_type = "batch"
-      self.eps_min = .4
+      self.iters = 200
+      self.lr = .005
+      self.training_type = "stochastic"
+      self.eps_min = .01
       self.eps_init = 1
-      self.eps_decay = .999
-      self.epochs = 30
-      self.batch_size = 300
+      self.eps_decay = .98
+      self.epochs = 2
+      self.batch_size = 600
       self.batches_per_training = 3
       self.epoch_batch_size = 1
       self.alg_type = "fitted"
-      self.activation_function = "sigmoid"
 
       
       #define constants/defaults to be used
@@ -169,21 +168,19 @@ class Constants:
       self.relative=False
       self.rel_headings=[-30,0,30]
       self.theta_size_act=60
-      self.discount_factor=.97
-      self.max_reward= 1
-      self.neg_reward=-.5
-      self.smooth_reward = False
-      self.reward_dropoff= .97
+      self.discount_factor=.999
+      self.max_reward=100
+      self.neg_reward=-50
+      self.reward_dropoff=.96
       self.max_reward_radius=10
       self.save_iteration=True
-      self.save_iter_num = 10
+      self.save_iter_num = 4
       self.players = "evan"
       self.mem_type = "memory per action"
-      self.mem_length = 300
-      self.mem_thresh = 300
+      self.mem_length = 40000
+      self.mem_thresh = 4000
       self.end_at_tagged = True
       self.num_test_iters = 1
-      self.num_eval_iters = 100
       
       #define locations for storing/reading and scripts
       """-----------------------------------------------------------------------
@@ -209,17 +206,17 @@ class Constants:
 
       self.test_address -> path to the folder holding the models that need to be tested
       -----------------------------------------------------------------------"""
-      user_path = '/home/arjun/'
+      user_path = '/Users/Gupta/'
       learning_path = 'moos-ivp-argupta/pLearn/learning_code/'
       simulation_path = 'moos-ivp-argupta/pLearn/simulation_engine/'
-      self.sim_cmd= user_path+learning_path+'train.sh'
+      self.sim_cmd= user_path+learning_path+'tester.sh'
       self.eval_sim_cmd = user_path+learning_path+'evaluator.sh'
-      self.test_sim_cmd = user_path+learning_path+'tester.sh'
       self.process_path= user_path+learning_path+'results'
       self.process_cmd= user_path+learning_path+'log_converter.py'
       self.read_path= user_path+learning_path+'processed'
       self.out_address= user_path+simulation_path+'m200/table.csv'
       self.load_model_dir= user_path+learning_path+'examples/Simple_Opponent_BHV/topModel/'
-      self.save_model_dir= user_path+learning_path+'models/slowEps/'
-      self.mem_address=user_path+learning_path+'models/slowEps/'
+      self.save_model_dir= user_path+learning_path+'models/new_model/'
+      self.mem_address=user_path+learning_path+'models/new_model/'
       self.test_address= user_path+learning_path+'examples/Simple_Opponent_BHV/topModel/'
+

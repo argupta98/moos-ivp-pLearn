@@ -12,7 +12,7 @@ generation. Format:
 
 --> Not Included in this folder is the source code for BHV_Input which is used
     to run the trained model in simulation by taking in a table. That can be
-    found under moos-ivp-argupta/src/lib_behavior-test/
+    found under moos-ivp-pLearn/src/lib_behavior-test/
 
 For more specific information for each folder, reference the README within
 that folder.

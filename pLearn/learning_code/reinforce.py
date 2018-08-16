@@ -80,11 +80,7 @@ def make_rewards(smooth = True):
     """
     if smooth:
         def reward_fn(state):
-            enemy_dist=state[Constants.state["enemy_dist"].index]
-            if(enemy_dist < 10):
-                return Constants.neg_reward
-            else:
-                return within_goal(state)+within_bound(state)+within_tagged(state)
+            return within_goal(state)+within_bound(state)+within_tagged(state)
     else:
         def reward_fn(state):
             #check within bounds (first priority)
@@ -115,8 +111,8 @@ def within_goal(state):
    reward_dropoff=Constants.reward_dropoff
    dist=state[Constants.state["flag_dist"].index]
    if state[Constants.state["out"].index] != 1:
-        value = min(max(dist-10, 0), 200)
-        return float(Constants.max_reward) - value*(float(Constants.max_reward)/200)
+        value = min(max(dist-Constants.max_reward_radius, 0), 200)
+        return float(Constants.max_reward)*reward_dropoff**value
    else:
         return 0 
 
@@ -148,7 +144,7 @@ def within_tagged(state):
    enemy_dist=state[Constants.state["enemy_dist"].index]
    if state[Constants.state["out"].index] == 1:
        return Constants.neg_reward
-   elif enemy_dist < 10:
+   elif enemy_dist < 8:
        return Constants.neg_reward
    elif enemy_dist < 30:
        return Constants.neg_reward-enemy_dist*(Constants.neg_reward/30)
@@ -195,10 +191,6 @@ def evaluate(deep_learner, process_cmd, simulation_cmd, iters = Constants.num_ev
                 trials_tagged+=1
                 print("\n\nTAGGED!!!\n\n")
                 break
-            if(out == "True"):
-                trials_out+=1
-                print("\n\nOUT!!!\n\n")
-                break
             d_x = x-flag_loc[0]
             d_y = y-flag_loc[1]
             distance_to_flag = (d_x**2 + d_y**2)**(.5)
@@ -208,16 +200,16 @@ def evaluate(deep_learner, process_cmd, simulation_cmd, iters = Constants.num_ev
                 break
 
     pct_capture = float(flag_captured)/trial_num
-    pct_tagged = float(trials_tagged)/trial_num
     pct_out = float(trials_out)/trial_num
     print(str(pct_out) + " " + str(pct_capture))
 
-    return (pct_out, pct_capture, pct_tagged)
+    return (pct_out, pct_capture)
+
 #----------------------------------------------------------------------
 #                            Main
 #----------------------------------------------------------------------
 
-   
+
 if(sys.argv[1]=="new" or sys.argv[1]=="debug" or sys.argv[1]=="test" or sys.argv[1]=="evaluate"):
     learner=Deep_Learner(make_rewards(Constants.smooth_reward), make_actions(), Constants.alg_type, False)
 elif(sys.argv[1]=="load"):
@@ -239,18 +231,18 @@ elif(sys.argv[1]=="test"):
         iters = int(sys.argv[2])
         out1 = open(Constants.test_address+"pre_assessment.log", 'w')
         process = "/home/arjun/moos-ivp-argupta/pLearn/learning_code/baseline_constructor.py"
-        simulation = "/home/arjun/moos-ivp-argupta/pLearn/learning_code/baseline_evaluator.sh"
+        simulation = "/home/arjun/moos-ivp-argupta/pLearn/learning_code/evaluator.sh"
         for i in range(iters+1):
             learner.output_table(optimal = True, model_address = Constants.test_address+"iteration_"+str(i)+"/")
             percent_inbound, score, percent_captured = learner.sim_episode(0, iters=Constants.num_test_iters, table=False, simulation_cmd = Constants.test_sim_cmd)
-            pct_in, _ = evaluate(learner, process, simulation, iters = 1)
+            pct_in,pct_captured = evaluate(learner, process, simulation, iters = 1)
             percent_inbound = percent_inbound-(1-pct_in)
             performance_metrics.append((i, int(percent_inbound*100), int(score), int(percent_captured*100)))
             #print out progress
             out1.write("\n iteration_"+str(i)+":  avg reward: "+str(score)+" pct time inbounds: "+str(percent_inbound)+
                             " pct captured: "+str(percent_captured)+"\n")
             print("\n------ Finished evaluating iteration "+str(i)+": "+str(int(percent_inbound*100))+" pct time inbounds,  "+str(score)+" reward -----\n")
-
+            
         out1.close()
          #plot performance
         fig = plt.figure(1)
@@ -312,14 +304,10 @@ elif sys.argv[1] == "evaluate":
     base_address = "/home/arjun/moos-ivp-argupta/pLearn/learning_code/"
     process = base_address+"baseline_constructor.py"
     simulation = base_address+"evaluator.sh"
-    if(len(sys.argv) > 2):
-        simulation = base_address+"baseline_evaluator.sh"
-        save_address = base_address + "baseline_evaluation.log"
     learner.output_table(optimal = True, model_address = Constants.test_address)
-    pct_out, percent_captured, percent_tagged = evaluate(learner, process, simulation)
+    pct_in, percent_captured = evaluate(learner, process, simulation)
     outfile = open(save_address, 'w')
     outfile.write("\n------- Ran "+str(Constants.num_eval_iters)+" iterations -----\n\n")
-    outfile.write(" pct time out: "+str(pct_out)+
-                  " pct captured: "+str(percent_captured)+
-                  " pct time tagged: "+str(percent_tagged)+"\n")
+    outfile.write(" pct time out: "+str(pct_in)+
+                  " pct captured: "+str(percent_captured))
     outfile.close()

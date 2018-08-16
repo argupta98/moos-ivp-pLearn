@@ -87,11 +87,8 @@ class Deep_Learner:
         self.bad_memory = deque(maxlen=Constants.mem_length)
         
         #output the environment into the folder
-        try:
-            self.output_environment()
-        except:
-            subprocess.call(["mkdir",Constants.save_model_dir])
-            self.output_environment()
+        subprocess.call(["mkdir",Constants.save_model_dir])
+        self.output_environment()
                 
         #initalize folder at 0 iterations if it doesn't already exist
         if(not os.path.isfile(Constants.save_model_dir+"iterations")):
@@ -175,7 +172,6 @@ class Deep_Learner:
                 data=inp.read().splitlines()
 
             captured = False
-            last_out = False
             for line in data:
                 total_trials+=1
                 #construct (s_0, a, s_1, r) lists for consumption later
@@ -243,7 +239,7 @@ class Deep_Learner:
 
         write_file.close()
         return (time_out, total_reward, pct_captured)
-
+ 
     """
     Procedure: save_memory()
 
@@ -283,7 +279,6 @@ class Deep_Learner:
                         data = infile.read().splitlines()
                         for line in data:
                             term = []
-                            paren_stack = 0
                             last_pointer = 0
                             #seperate line into s_0, a, s_1, rand put into list
                             for i, character in enumerate(line):
@@ -347,7 +342,7 @@ class Deep_Learner:
             file.write("relative="+str(Constants.relative)+"\n")
             file.write("num_states="+str(Constants.num_states)+"\n")
             file.write("players="+Constants.players+"\n")
-            file.write("state=");
+            file.write("state=")
             for i in range(len(Constants.state)):
                 key=Constants.state.keys()[i]
                 file.write(str(key))
@@ -360,7 +355,7 @@ class Deep_Learner:
                 if i != len(Constants.state)-1:
                     file.write(",")
             file.write("\n")
-            file.write("model_address="+model_address+"\n");
+            file.write("model_address="+model_address+"\n")
             file.write("actions=")
             for i, action in enumerate(self.actions):
                 file.write(str(action))
@@ -620,7 +615,7 @@ class Deep_Learner:
                 for action in self.actions:
                     if(len(self.memory[action]) >  self.batch_size//(len(self.actions))):
                        subdata = random.sample(self.memory[action], self.batch_size//(len(self.actions)))
-                       data.extend(subdata);
+                       data.extend(subdata)
                     else:
                        data.extend(self.memory[action])
             else:

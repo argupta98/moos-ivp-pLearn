@@ -3,7 +3,7 @@ Date: December 4th 2017
 
 This directory contains all the scripts to run build and train a reinforcement
 learning algorithm and output a table that can be read in by BHV_Input. Run
-"python reinforce.py false" to begin training a new model with parameters
+"python reinforce.py new" to begin training a new model with parameters
 defined in Constants.py.
 
 File structure:
@@ -24,8 +24,10 @@ File structure:
 	intitialize and trains the agent based on the paramters given in
 	Constants.py. Call with "load" flag to load in parameters from the
 	designated directory in Constatns.py, "new" to make a new model, and
-	"test" to output an optimal table of values, and call "./run.sh" to see
-	how the model is doing
+	"test" to output the correct model, and call "./run.sh" to see
+	how the model is doing. Finally call "test #" where # is the number
+	of saved iterations of the model to get test statistics on the whole
+	batch
 
     --> "DeepLearn.py" - Defines the deep_learn class which provides
 	functions for initializing and training a deep reinforcement learning
@@ -38,9 +40,6 @@ File structure:
     --> "tester.sh" - Runs the simulation for a set amount of time and then
     	kills it. Then aloggreps the relavant MOOSLogs for INP_STAT to get
 	state and action information and writes the resulting .csv to "results/"
-    
-    --> "launch_ED_FI.sh" - Launches the simulation with Felix on the red team
-    	exhibiting the behavior that implements the outputted table.
 
     --> "run.sh" - simple script to run a simulation with the current table
     	and pMarineViewer running
@@ -65,6 +64,6 @@ File structure:
 
 - Outputs
 
-  --> "table.csv" - outputted table to be read by BHV_Input
+  --> "table.csv" - outputted information to be read by BHV_Input
   
   --> "interpreted.csv" - what BHV_Input interpreted out table as (for checking)
