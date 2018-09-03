@@ -43,22 +43,22 @@ Prior to using the \app{pLearn} Learning platform, the following dependencies mu
 
 This platform requires Python2.7 (comes pre-installed on recent MacOS) as well
 as a number of Python packages. If you are not running on MacOS and do not
-already have Python2.7 installed, you can download it here:
+already have Python2.7 installed, you can install it using your favorite package manager or download it here:
 
 \vspace{0.15in}
 https://www.python.org/downloads/release/python-2714/
 \vspace{0.15in}
  
-You will also need the python 2.7 development package in order for it to be embedded in C++. You can install this using macports as follows.
+ You will also need the python 2.7 development package in order for it to be embedded in C++. For mac users, this package comes pre-installed, but for Ubuntu users, you can install using apt-get.%You can install this using macports as follows.
 
-\vspace{0.15in}
-\begin{fileverb} 
-$ sudo port install python2.7-dev
-\end{fileverb}
-\vspace{0.15in}
+%\vspace{0.15in}
+%\begin{fileverb} 
+%$ sudo port install python2.7-dev
+%\end{fileverb}
+%\vspace{0.15in}
 
 
-For Ubuntu users, you can run a similar command using apt-get.
+
 
 \vspace{0.15in}
 \begin{fileverb} 
@@ -92,7 +92,7 @@ Make sure that the following directories are included in your \texttt{PATH} envi
 \vspace{0.15in}
 \begin{fileverb}
 {path to}/moos-ivp/bin
-{path to}/moos-ivp-argupta/bin
+{path to}/moos-ivp-pLearn/bin
 {path to}/tensorflow/bin
 {path to}/aquaticus/bin
 \end{fileverb}
@@ -102,7 +102,7 @@ Include the following directories in your \texttt{IVP\_BEHAVIOR\_DIRS} environme
 
 \vspace{0.15in}
 \begin{fileverb}
-{path to}/moos-ivp-argupta/lib
+{path to}/moos-ivp-pLearn/lib
 {path to}/aquaticus/lib
 \end{fileverb}
 \vspace{0.15in}
@@ -111,8 +111,8 @@ Finally, include the following directories in your \texttt{PYTHONPATH} environme
 
 \vspace{0.15in}
 \begin{fileverb}
-{path to}/moos-ivp-argupta/pLearn/learning_code
-{path to}/moos-ivp-argupta/src/lib_python
+{path to}/moos-ivp-pLearn/pLearn/learning_code
+{path to}/moos-ivp-pLearn/src/lib_python
 .
 \end{fileverb}
 \vspace{0.15in}
@@ -120,29 +120,28 @@ Finally, include the following directories in your \texttt{PYTHONPATH} environme
 %======================================================================
 \section{pLearn QuickStart}
 %======================================================================
-This section is meant to see that everything is setup and working correctly. By the end of the section, you will load an already trained model into \app{BHV Input} and run a simulation with it. These files are all in the \texttt{moos-ivp-argupta/pLearn/learning\_code} 
+This section is meant to see that everything is setup and working correctly. By the end of the section, you will load an already trained model into \app{BHV Input} and run a simulation with it. These files are all in the \texttt{moos-ivp-pLearn/pLearn/learning\_code} 
 folder 
 \begin{enumerate}
-	\item \textbf{Modify the File Paths -} Change the \texttt{user\_path} variable in \texttt{Constants.py} to the path to your moos-ivp-argupta tree.  
+	\item \textbf{Modify the File Paths -} Change the \texttt{user\_path} variable in \texttt{Constants.py} to the path to your moos-ivp-pLearn tree.  
 	
 	\item \textbf{Setup Files to Load the Model -} We will load the model in the
 	
 	\begin{verbatim} 
-moos-ivp-argupta/pLearn/learning_code/examples/Simple_Opponent_BHV/topModel
+moos-ivp-pLearn/pLearn/learning_code/examples/Simple_Opponent_BHV/topModel
 	\end{verbatim}
 	
 	folder. First, overwrite \textit{Constants.py} with
 	
 	\begin{verbatim} 
-moos-ivp-argupta/pLearn/examples/Simple_Opponent_BHV/environment.py
+moos-ivp-pLearn/pLearn/examples/Simple_Opponent_BHV/environment.py
 	\end{verbatim}
 
 	\vspace{0.15in}
 	 which is a snapshot of the \texttt{Constants.py} file used when the \texttt{Simple\_Opponent\_BHV} Model was trained. Then, reset the \texttt{self.load\_model\_dir} variable in the new \texttt{Constants.py} to be: 
 	 
 	 \begin{verbatim} 
-self.load_model_dir = user_path + 
-		      		 "moos-ivp-argupta/pLearn/examples/Simple_Opponent_BHV/topModel"
+self.load_model_dir = learning_path + 'examples/Simple_Opponent_BHV/topModel/'
 	 \end{verbatim}
  
 	to tell the program that that is the model we are loading. 
@@ -415,10 +414,10 @@ The algorithm makes one neural net that takes in a state representation as input
 \section{Making A Model}
 %======================================================================
 
-Change the \texttt{user\_path} variable to the path to your moos-ivp-argupta tree. Change the parameters in \texttt{Constants.py} to form the model as desired. More specifics on the parameters in \texttt{Constants.py} are below. Once the parameters are set, the model is ready to be trained. 
+Change the \texttt{user\_path} variable to the path to your moos-ivp-pLearn tree. Change the parameters in \texttt{Constants.py} to form the model as desired. More specifics on the parameters in \texttt{Constants.py} are below. Once the parameters are set, the model is ready to be trained. 
 
 \subsection{Constants.py}
-\texttt{Constants.py} contains all the important information for the training and testing algorithms and is the primary file that needs to be edited to customize the machine learning model. Before editing any other portions of \texttt{Constants.py}, change the \texttt{user\_path} variable to the path to your \texttt{moos-ivp-argupta} tree. \texttt{Constants.py} has four main sections listed below.
+\texttt{Constants.py} contains all the important information for the training and testing algorithms and is the primary file that needs to be edited to customize the machine learning model. Before editing any other portions of \texttt{Constants.py}, change the \texttt{user\_path} variable to the path to your \texttt{moos-ivp-pLearn} tree. \texttt{Constants.py} has four main sections listed below.
 
 \subsubsection{State Definition}
 The state class is a way of holding all the state information together. It has the fields:

@@ -56,10 +56,10 @@ class Constants:
       self.state["heading"]=State(index=3, typ="raw", var="heading", rang=(0, 360))
       self.state["color"]= State(index=4, typ="binary", var="team", var_mod="self")
 
-      self.state["leftBound"] = State(index=5, typ="distance", var="leftBound", var_mod="self");
-      self.state["rightBound"] = State(index=6, typ="distance", var="rightBound", var_mod="self");
-      self.state["upperBound"] = State(index=7, typ="distance", var="upperBound", var_mod="self");
-      self.state["lowerBound"] = State(index=8, typ="distance", var="lowerBound", var_mod="self");
+      self.state["leftBound"] = State(index=5, typ="distance", var="leftBound", var_mod="self")
+      self.state["rightBound"] = State(index=6, typ="distance", var="rightBound", var_mod="self")
+      self.state["upperBound"] = State(index=7, typ="distance", var="upperBound", var_mod="self")
+      self.state["lowerBound"] = State(index=8, typ="distance", var="lowerBound", var_mod="self")
 
       self.state["enemy_dist"]= State(index=9, typ="distance", var="player", rang=(0, 200), vehicle="evan")
       self.state["enemy_angle"]=State(index=10, typ="angle", var="player", rang=(0,360), vehicle="evan")
@@ -103,10 +103,11 @@ class Constants:
       
       self.num_layers= 2
       self.num_units = 10
+      self.activation_function = "relu"
       self.num_traj = 1
       self.iters = 200
       self.lr = .005
-      self.training_type = "stochastic"
+      self.training_type = "batch"
       self.eps_min = .01
       self.eps_init = 1
       self.eps_decay = .98
@@ -142,6 +143,8 @@ class Constants:
       
       self.max_reward_radius -> the radius around the goal that has max reward.
 
+      self.smooth_reward -> which type of reward function we use
+
       self.save_iteration -> boolean will have the given model save itself to a new
       folder for every self.save_iter_num iterations
 
@@ -162,17 +165,20 @@ class Constants:
       self.end_at_tagged -> Flag that decides whether tagged states count as terminal states (i.e. 
       there are no transitions recorded that go from a tagged state to another state) 
 
-      self.num_test_iters -> the number of time to run the simulation per model when testing
+      self.num_test_iters -> the number of times to run the simulation per model when testing
+
+      self.num_eval_iters -> the number of times to run the simulation per model when evaluating
       -----------------------------------------------------------------------"""
-      self.speeds=[2]
-      self.relative=False
-      self.rel_headings=[-30,0,30]
-      self.theta_size_act=60
-      self.discount_factor=.999
-      self.max_reward=100
-      self.neg_reward=-50
-      self.reward_dropoff=.96
-      self.max_reward_radius=10
+      self.speeds = [2]
+      self.relative = False
+      self.rel_headings = [-30,0,30]
+      self.theta_size_act = 60
+      self.discount_factor = .999
+      self.max_reward = 100
+      self.neg_reward = -50
+      self.reward_dropoff = .96
+      self.max_reward_radius = 10
+      self.smooth_reward = True
       self.save_iteration=True
       self.save_iter_num = 4
       self.players = "evan"
@@ -181,6 +187,7 @@ class Constants:
       self.mem_thresh = 4000
       self.end_at_tagged = True
       self.num_test_iters = 1
+      self.num_eval_iters = 2
       
       #define locations for storing/reading and scripts
       """-----------------------------------------------------------------------
@@ -204,19 +211,23 @@ class Constants:
       
       self.mem_address -> path to memory to load in
 
+      self.eval_address -> path to the folder holding the models that need to be evaluated
+
       self.test_address -> path to the folder holding the models that need to be tested
       -----------------------------------------------------------------------"""
-      user_path = '/Users/Gupta/'
-      learning_path = 'moos-ivp-argupta/pLearn/learning_code/'
-      simulation_path = 'moos-ivp-argupta/pLearn/simulation_engine/'
-      self.sim_cmd= user_path+learning_path+'tester.sh'
-      self.eval_sim_cmd = user_path+learning_path+'evaluator.sh'
-      self.process_path= user_path+learning_path+'results'
-      self.process_cmd= user_path+learning_path+'log_converter.py'
-      self.read_path= user_path+learning_path+'processed'
-      self.out_address= user_path+simulation_path+'m200/table.csv'
-      self.load_model_dir= user_path+learning_path+'examples/Simple_Opponent_BHV/topModel/'
-      self.save_model_dir= user_path+learning_path+'models/new_model/'
-      self.mem_address=user_path+learning_path+'models/new_model/'
-      self.test_address= user_path+learning_path+'examples/Simple_Opponent_BHV/topModel/'
+      user_path = '/home/arjun/'
+      learning_path = user_path + 'moos-ivp-pLearn/pLearn/learning_code/'
+      simulation_path = user_path + 'moos-ivp-pLearn/pLearn/simulation_engine/'
+      self.sim_cmd = learning_path+'train.sh'
+      self.eval_sim_cmd = learning_path+'evaluator.sh'
+      self.test_sim_cmd = learning_path+'tester.sh'
+      self.process_path = learning_path+'results'
+      self.process_cmd = learning_path+'log_converter.py'
+      self.read_path = learning_path+'processed'
+      self.out_address = simulation_path+'m200/table.csv'
+      self.load_model_dir = learning_path+'examples/Simple_Opponent_BHV/topModel/'
+      self.save_model_dir = learning_path+'models/new_model/'
+      self.mem_address = learning_path+'models/new_model/'
+      self.eval_address = learning_path+'models/new_model'
+      self.test_address = learning_path+'models/new_model/'
 
