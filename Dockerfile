@@ -5,7 +5,7 @@ ENV MOOS="moos-ivp-aquaticus"
 
 USER root
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libncurses-dev sudo python2.7-dev python-pip python-tk && apt-get clean
-RUN apt-get install -y vim emacs-nox 
+RUN apt-get install -y vim emacs-nox tmux
 RUN usermod -aG sudo moos
 USER moos
 
@@ -30,6 +30,6 @@ ENV IVP_BEHAVIOR_DIRS="/home/moos/${PLEARN}/lib:${IVP_BEHAVIOR_DIRS}"
 ENV PYTHONPATH="${PYTHONPATH}:/home/moos/${PLEARN}/pLearn/learning_code:/home/moos/${PLEARN}/src/lib_python"
 
 #RUN git clone https://github.com/mnovitzky/moos-ivp-pLearn.git
-COPY . moos-ivp-pLearn/
+COPY --chown=moos:moos . moos-ivp-pLearn/
 
 RUN cd ${PLEARN} && ./build.sh
