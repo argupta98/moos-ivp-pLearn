@@ -1,6 +1,7 @@
 
 # Author: Arjun Gupta
 # Date: December 6 2017
+import os
 
 class State:
    """------------------------------------------------------------------------
@@ -215,7 +216,7 @@ class Constants:
 
       self.test_address -> path to the folder holding the models that need to be tested
       -----------------------------------------------------------------------"""
-      user_path = '/home/arjun/'
+      user_path = os.getenv("HOME") + '/'
       learning_path = user_path + 'moos-ivp-pLearn/pLearn/learning_code/'
       simulation_path = user_path + 'moos-ivp-pLearn/pLearn/simulation_engine/'
       self.sim_cmd = learning_path+'train.sh'
