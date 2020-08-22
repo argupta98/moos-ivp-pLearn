@@ -1,4 +1,4 @@
-FROM herocc/moos-ivp:19.8
+FROM moosivp/moos-ivp:r9177-gui
 LABEL maintainer = Michael Misha Novitzky <novitzky@mit.edu>
 
 ENV MOOS="moos-ivp-aquaticus"
@@ -9,7 +9,7 @@ ENV IVP_BEHAVIOR_DIRS="${IVP_BEHAVIOR_DIRS}:/home/moos/${MOOS}/lib"
 USER root
 RUN usermod -aG sudo moos
 RUN echo "moos:moos" | chpasswd
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libncurses-dev sudo python2.7-dev python-pip python-tk&& apt-get clean
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libncurses-dev sudo python2.7-dev python-pip python-tk && apt-get clean
 RUN apt-get install -y vim emacs-nox tmux
 RUN pip2 install --no-cache-dir numpy matplotlib tensorflow keras
 USER moos
