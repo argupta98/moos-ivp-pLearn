@@ -152,6 +152,13 @@ class Deep_Learner:
         trials_out = 0
         total_reward = 0
         flag_captured = 0
+        '''Lets create directories '''
+        if not os.path.exists('results'):
+            os.makedirs('results')
+        if not os.path.exists('processed'):
+            os.makedirs('processed')
+        if not os.path.exists("paths"):
+            os.makedirs("paths")
         write_file=open('paths/trajectory_'+str(trial_num)+'.log', 'w')
         print("starting simulation")
         for _ in range(iters):
