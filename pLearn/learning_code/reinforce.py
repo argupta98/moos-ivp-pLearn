@@ -11,6 +11,7 @@ from DeepLearn import Deep_Learner
 from Constants import Constants
 import math
 import sys
+import os
 import matplotlib.pyplot as plt
 import subprocess
    
@@ -230,8 +231,10 @@ elif(sys.argv[1]=="test"):
         performance_metrics=[]
         iters = int(sys.argv[2])
         out1 = open(Constants.test_address+"pre_assessment.log", 'w')
-        process = "/home/arjun/moos-ivp-argupta/pLearn/learning_code/baseline_constructor.py"
-        simulation = "/home/arjun/moos-ivp-argupta/pLearn/learning_code/evaluator.sh"
+        user_path = os.getenv("HOME")+'/'
+        plearn_path = user_path + 'moos-ivp-pLearn'
+        process = plearn_path + "/pLearn/learning_code/baseline_constructor.py"
+        simulation = plearn_path + "/pLearn/learning_code/evaluator.sh"
         for i in range(iters+1):
             learner.output_table(optimal = True, model_address = Constants.test_address+"iteration_"+str(i)+"/")
             percent_inbound, score, percent_captured = learner.sim_episode(0, iters=Constants.num_test_iters, table=False, simulation_cmd = Constants.test_sim_cmd)
@@ -301,7 +304,9 @@ elif(sys.argv[1]=="test"):
 
 elif sys.argv[1] == "evaluate":
     save_address = Constants.test_address+"evaluation_statistics.log"
-    base_address = "/home/arjun/moos-ivp-argupta/pLearn/learning_code/"
+    user_path = os.getenv("HOME") + '/'
+    plearn_path = user_path + '/moos-ivp-pLearn'
+    base_address = plearn_path + "/pLearn/learning_code/"
     process = base_address+"baseline_constructor.py"
     simulation = base_address+"evaluator.sh"
     learner.output_table(optimal = True, model_address = Constants.test_address)
