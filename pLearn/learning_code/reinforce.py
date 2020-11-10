@@ -214,6 +214,9 @@ def evaluate(deep_learner, process_cmd, simulation_cmd, iters = Constants.num_ev
 if(sys.argv[1]=="new" or sys.argv[1]=="debug" or sys.argv[1]=="test" or sys.argv[1]=="evaluate"):
     learner=Deep_Learner(make_rewards(Constants.smooth_reward), make_actions(), Constants.alg_type, False)
 elif(sys.argv[1]=="load"):
+    #check for proper load_model_dir path
+    if not os.path.exists(Constants.load_model_dir):
+        print("ERROR: Constants.load_model dir: " + Constants.load_model_dir+ " not valid")
     learner=Deep_Learner(make_rewards(Constants.smooth_reward), make_actions(), Constants.alg_type, True)
 else:
     raise SyntaxError("Not a Valid Argument, Please call with on of the following flags: 'test', 'load', 'new', 'evaluate'")
@@ -226,6 +229,12 @@ if(sys.argv[1] == "new" or sys.argv[1] == "load"):
         learner.DQL()
         
 elif(sys.argv[1]=="test"):
+    #let's validate Constants.test_address
+    if not os.path.exists(Constants.test_address):
+        #the path provided is invalid
+        print("ERROR: The provided path in Constants.py test_address of :" + Constants.test_address + " is invalid")
+        sys.exit()
+
     if len(sys.argv)>2:
         learner.initialize()
         performance_metrics=[]
@@ -233,7 +242,7 @@ elif(sys.argv[1]=="test"):
         out1 = open(Constants.test_address+"pre_assessment.log", 'w')
         user_path = os.getenv("HOME")+'/'
         plearn_path = user_path + 'moos-ivp-pLearn'
-        process = plearn_path + "/pLearn/learning_code/baseline_constructor.py"
+        process = plearn_path + "/pLearn/learning_code/log_converter.py"
         simulation = plearn_path + "/pLearn/learning_code/evaluator.sh"
         for i in range(iters+1):
             learner.output_table(optimal = True, model_address = Constants.test_address+"iteration_"+str(i)+"/")
@@ -307,8 +316,13 @@ elif sys.argv[1] == "evaluate":
     user_path = os.getenv("HOME") + '/'
     plearn_path = user_path + '/moos-ivp-pLearn'
     base_address = plearn_path + "/pLearn/learning_code/"
-    process = base_address+"baseline_constructor.py"
+    process = base_address+"log_converter.py"
     simulation = base_address+"evaluator.sh"
+    #let's validate Constants.test_address
+    if not os.path.exists(Constants.test_address):
+        #the path provided is invalid
+        print("ERROR: The provided path in Constants.py test_address of :" + Constants.test_address + " is invalid")
+        sys.exit()
     learner.output_table(optimal = True, model_address = Constants.test_address)
     pct_in, percent_captured = evaluate(learner, process, simulation)
     outfile = open(save_address, 'w')
