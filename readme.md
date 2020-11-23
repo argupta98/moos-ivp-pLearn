@@ -58,24 +58,22 @@ In order for generated IvP Behaviors to be recognized by the IvP Helm, you
 should add the library directory to the `IVP_BEHAVIOR_DIRS` environment 
 variable.
 
-##The following installation instructions were verified in Ubuntu 18.04 LTS
+## The following installation instructions were verified in Ubuntu 18.04 LTS
 
-##Install MOOS-IvP
+## Install MOOS-IvP
+```
+$ sudo apt update
+$ sudo apt install -y libncurses-dev sudo subversion
 
-sudo apt-get update
-sudo apt-get install -y libncurses-dev sudo
- 
+$ svn co https://oceanai.mit.edu/svn/moos-ivp-aro/releases/moos-ivp-19.8.1 moos-ivp
 
-sudo apt install subversion
-
-svn co https://oceanai.mit.edu/svn/moos-ivp-aro/releases/moos-ivp-19.8.1 moos-ivp
-
-sudo apt-get install g++ subversion xterm cmake libfltk1.3-dev freeglut3-dev libpng-dev libjpeg-dev libxft-dev libxinerama-dev libtiff5-dev
+$ sudo apt-get install g++ subversion xterm cmake libfltk1.3-dev freeglut3-dev libpng-dev libjpeg-dev libxft-dev libxinerama-dev libtiff5-dev
 
 
-cd moos-ivp
+$ cd moos-ivp
 
 $ ./build.sh
+```
 
 //update your .bashrc file to include the following variables
 //update the variable User_name with your system's username
@@ -96,7 +94,7 @@ $ pAntler alpha.moos
 
 
 
-##Install moos-ivp-aquaticus
+## Install moos-ivp-aquaticus
 
 cd ~
 
@@ -127,7 +125,7 @@ $ ./launch_demo
 
 
 
-##Install moos-ivp-pLearn
+## Install moos-ivp-pLearn
 
 pip2 install --no-cache-dir numpy matplotlib 'tensorflow==1.14.0'
 //using tensorflow version 1.14.0 and keras 2.0.8
