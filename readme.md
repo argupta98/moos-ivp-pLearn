@@ -9,6 +9,48 @@
 The moos-ivp-pLearn repository is an extension of Project Aquaticus which is based on MOOS-IvP, a powerful marine
 autonomy library.  This repository assumes that the moos-ivp and moos-ivp-aquaticus repositories have been built and applications available through system PATH variable.
 
+## RUN AS DOCKER IMAGE
+  A container is a running process. Docker Image is the file system. An image includes everything needed to run an application.
+
+Make sure docker is installed:
+```
+   $ docker run hello-world
+```
+If Docker is installed properly, it should display text including 'Hello from Docker!'
+
+
+If it is not installed, please follow the instructions:
+```
+https://docs.docker.com/engine/install/ubuntu/
+```
+
+Pull the repository down:
+```
+   $ git clone https://github.com/mnovitzky/moos-ivp-pLearn.git
+```
+
+```
+   $ cd moos-ivp-pLearn
+   $ docker build -t plearn:1.0 .
+```
+
+need?
+```
+   $  xhost+
+```
+
+```
+   $ docker run --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.X11-unix" --name  plearn -it plearn:1.0 bash 
+
+```
+
+username:moos
+password:moos
+
+
+
+## FROM SOURCE
+
 ## Directory Structure
 
 The directory structure for the moos-ivp-extend is decribed below:
@@ -139,10 +181,10 @@ Install some dependencies for python
    $ sudo apt install git
 ```
 
-//Specifically verified using tensorflow version 1.14.0 and keras 2.0.8
+//Specifically verified using tensorflow version 1.5 and keras 2.0.8
 ```
-   $ pip2 install --no-cache-dir numpy matplotlib 'tensorflow==1.14.0'
-   $ pip2 install 'keras==2.0.8'
+   $ pip2 install --no-cache-dir numpy matplotlib 'tensorflow==1.5' 
+   $ pip2 install 'keras==2.0.8' colorama
    
    $ git clone https://github.com/mnovitzky/moos-ivp-pLearn.git
 ```
