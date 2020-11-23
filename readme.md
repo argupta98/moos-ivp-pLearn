@@ -71,6 +71,7 @@ variable.
 ```
 
 Update your .bashrc file to include the following variables
+
 //update the variable User_name with your system's username
 ```
 User_name=mikey 
@@ -81,59 +82,63 @@ export IVP_BEHAVIOR_DIRS
 ```
 
 //after saving the .bashrc file -- you should load it by typing:
-$bash 
-
+```
+   $ bash 
+```
 
 //verify moos-ivp installation
-$ cd moos-ivp/ivp/missions/s1_alpha
-$ pAntler alpha.moos
+```
+   $ cd moos-ivp/ivp/missions/s1_alpha
+   $ pAntler alpha.moos
+```
 //Start simulation by clicking 'DEPLOY' on lower right of the GUI
 
 
 
 ## Install moos-ivp-aquaticus
 
-cd ~
+```
+   $ cd ~
+   $ svn co https://oceanai.mit.edu/svn/moos-ivp-aquaticus-oai/trunk/ moos-ivp-aquaticus
+   $ cd moos-ivp-aquaticus
+   $ ./build.sh
+```
 
-svn co https://oceanai.mit.edu/svn/moos-ivp-aquaticus-oai/trunk/ moos-ivp-aquaticus
+Update your .bashrc file to include the following variables
 
-cd moos-ivp-aquaticus
-
-$./build.sh
-
-//update your .bashrc file to include the following variables
 //update the variable User_name with your system's username
+```
 User_name=mikey 
 PATH="/home/${User_name}/moos-ivp-aquaticus/bin:${PATH}"
 IVP_BEHAVIOR_DIRS="/home/${User_name}/moos-ivp-aquaticus/lib:${IVP_BEHAVIOR_DIRS}"
 export PATH
 export IVP_BEHAVIOR_DIRS
+```
 
 //after saving the .bashrc file -- you should load it by typing:
-$bash 
-
+```
+   $ bash 
+```
 
 //Test moos-ivp-aquaticus
-
-$ cd ~/moos-ivp-aquaticus/missions/bots-only-example
-$ ./launch_demo
-
+```
+   $ cd ~/moos-ivp-aquaticus/missions/bots-only-example
+   $ ./launch_demo
+```
 //A gui should come up and the robots will start moving when you click on the 'DEPLOY' button in the lower right.
 
 
 
 ## Install moos-ivp-pLearn
-
-pip2 install --no-cache-dir numpy matplotlib 'tensorflow==1.14.0'
-//using tensorflow version 1.14.0 and keras 2.0.8
-pip2 install 'keras==2.0.8'
-
-sudo apt install git
-
-git clone https://github.com/mnovitzky/moos-ivp-pLearn.git
-
-$cd moos-ivp-pLearn
-$ ./build.sh
+//Specifically verified using tensorflow version 1.14.0 and keras 2.0.8
+```
+   $ pip2 install --no-cache-dir numpy matplotlib 'tensorflow==1.14.0'
+   $ pip2 install 'keras==2.0.8'
+   $ sudo apt install git
+   $ git clone https://github.com/mnovitzky/moos-ivp-pLearn.git
+   $ cd moos-ivp-pLearn
+   $ ./build.sh
+```
 
 //can follow pLearn quickstart in 
 //moos-ivp-pLearn/docs/Documentation/pLearn.pdf
