@@ -135,7 +135,7 @@ Install some dependencies for python
 
 ```
    $ sudo apt update
-   $ sudo apt install -y libncurses-dev sudo python2.7-dev python-pip python-t
+   $ sudo apt install -y libncurses-dev sudo python2.7-dev python-pip python-tk
    $ sudo apt install git
 ```
 
