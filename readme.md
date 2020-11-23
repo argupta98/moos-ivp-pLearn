@@ -34,14 +34,30 @@ Pull the repository down:
    $ docker build -t plearn:1.0 .
 ```
 
-need?
 ```
-   $  xhost+
+   $  xhost +
 ```
 
 ```
    $ docker run --env="DISPLAY" --volume="/tmp/.X11-unix:/tmp/.X11-unix" --name  plearn -it plearn:1.0 bash 
 
+```
+
+Useful commands to run with a docker container:
+
+exit while leaving it running (de-attach):
+
+Ctrl+p Ctrl+q
+
+Attach to a running container:
+```
+   $ docker exec -i -t plearn bash
+```
+
+restarting a container that has exited:
+```
+  $ docker start  `docker ps -q -l` # restart it in the background
+  $ docker attach `docker ps -q -l` # reattach the terminal & stdin
 ```
 
 username:moos
