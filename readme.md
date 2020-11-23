@@ -160,10 +160,12 @@ export IVP_BEHAVIOR_DIRS
 export PYTHONPATH
 ```
 
+//After updating your .bashrc file, load it using:
 ```
    $ bash
 ```
 
+//Now build the moos-ivp-pLearn specific c++/python applications:
 ```
    $ cd moos-ivp-pLearn
    $ ./build.sh
