@@ -1,7 +1,8 @@
 
 # MOOS-IvP pLearn
 **Original Author: Arjun Gupta**
-**Maintenance: Michael "Misha" Novitzky
+
+**Maintainer: Michael "Misha" Novitzky**
 
 ## Introduction
 
@@ -65,7 +66,7 @@ variable.
    $ sudo apt update
    $ sudo apt install -y libncurses-dev sudo subversion
    $ svn co https://oceanai.mit.edu/svn/moos-ivp-aro/releases/moos-ivp-19.8.1 moos-ivp
-   $ sudo apt-get install g++ subversion xterm cmake libfltk1.3-dev freeglut3-dev libpng-dev libjpeg-dev libxft-dev libxinerama-dev libtiff5-dev
+   $ sudo apt install g++ subversion xterm cmake libfltk1.3-dev freeglut3-dev libpng-dev libjpeg-dev libxft-dev libxinerama-dev libtiff5-dev
    $ cd moos-ivp
    $ ./build.sh
 ```
@@ -130,12 +131,40 @@ export IVP_BEHAVIOR_DIRS
 
 
 ## Install moos-ivp-pLearn
+Install some dependencies for python
+
+```
+   $ sudo apt update
+   $ sudo apt install -y libncurses-dev sudo python2.7-dev python-pip python-t
+   $ sudo apt install git
+```
+
 //Specifically verified using tensorflow version 1.14.0 and keras 2.0.8
 ```
    $ pip2 install --no-cache-dir numpy matplotlib 'tensorflow==1.14.0'
    $ pip2 install 'keras==2.0.8'
-   $ sudo apt install git
+   
    $ git clone https://github.com/mnovitzky/moos-ivp-pLearn.git
+```
+Update your .bashrc file to include the following variables
+
+//Update the variable User_name with your system's username
+```
+User_name=mikey
+PATH="/home/${User_name}/moos-ivp-pLearn/bin:${PATH}"
+IVP_BEHAVIOR_DIRS="/home/${User_name}/moos-ivp-pLearn/lib"
+PYTHONPATH="${PYTHONPATH}:/home/${User_name}/moos-ivp-pLearn/pLearn/learning_code:/home/${User_name}/moos-ivp-pLearn/src/lib_python"
+
+export PATH
+export IVP_BEHAVIOR_DIRS
+export PYTHONPATH
+```
+
+```
+   $ bash
+```
+
+```
    $ cd moos-ivp-pLearn
    $ ./build.sh
 ```
