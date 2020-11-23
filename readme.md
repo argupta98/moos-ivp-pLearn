@@ -62,26 +62,23 @@ variable.
 
 ## Install MOOS-IvP
 ```
-$ sudo apt update
-$ sudo apt install -y libncurses-dev sudo subversion
-
-$ svn co https://oceanai.mit.edu/svn/moos-ivp-aro/releases/moos-ivp-19.8.1 moos-ivp
-
-$ sudo apt-get install g++ subversion xterm cmake libfltk1.3-dev freeglut3-dev libpng-dev libjpeg-dev libxft-dev libxinerama-dev libtiff5-dev
-
-
-$ cd moos-ivp
-
-$ ./build.sh
+   $ sudo apt update
+   $ sudo apt install -y libncurses-dev sudo subversion
+   $ svn co https://oceanai.mit.edu/svn/moos-ivp-aro/releases/moos-ivp-19.8.1 moos-ivp
+   $ sudo apt-get install g++ subversion xterm cmake libfltk1.3-dev freeglut3-dev libpng-dev libjpeg-dev libxft-dev libxinerama-dev libtiff5-dev
+   $ cd moos-ivp
+   $ ./build.sh
 ```
 
-//update your .bashrc file to include the following variables
+Update your .bashrc file to include the following variables
 //update the variable User_name with your system's username
+```
 User_name=mikey 
 PATH="/home/${User_name}/moos-ivp/bin:${PATH}"
 IVP_BEHAVIOR_DIRS="/home/${User_name}/moos-ivp/lib:${IVP_BEHAVIOR_DIRS}"
 export PATH
 export IVP_BEHAVIOR_DIRS
+```
 
 //after saving the .bashrc file -- you should load it by typing:
 $bash 
