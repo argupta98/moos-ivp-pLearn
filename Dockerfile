@@ -11,7 +11,7 @@ RUN usermod -aG sudo moos
 RUN echo "moos:moos" | chpasswd
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y libncurses-dev sudo python2.7-dev python-pip python-tk && apt-get clean
 RUN apt-get install -y vim emacs-nox tmux git
-RUN pip2 install --no-cache-dir numpy matplotlib 'tensorflow==1.5' 'keras==2.0.8' colorama
+RUN pip2 install --no-cache-dir numpy matplotlib 'tensorflow==1.5' 'keras==2.0.8' colorama h5py
 USER moos
 
 # Aquaticus tree

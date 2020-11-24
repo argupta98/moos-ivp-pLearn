@@ -200,7 +200,7 @@ Install some dependencies for python
 //Specifically verified using tensorflow version 1.5 and keras 2.0.8
 ```
    $ pip2 install --no-cache-dir numpy matplotlib 'tensorflow==1.5' 
-   $ pip2 install 'keras==2.0.8' colorama
+   $ pip2 install 'keras==2.0.8' colorama h5py
    
    $ git clone https://github.com/mnovitzky/moos-ivp-pLearn.git
 ```
