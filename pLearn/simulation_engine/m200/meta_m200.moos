@@ -23,11 +23,8 @@ ProcessConfig = ANTLER
   Run = uSimMarine         @ NewConsole = false
   Run = uFldMessageHandler @ NewConsole = false
   Run = pRangeEvent        @ NewConsole = false
-  Run = pBotDialog         @ NewConsole = false
   Run = pNodeReportParse   @ NewConsole = false
 }
-
-#include plug_iM200.moos
 
 #include ../plug_pShare.moos
 
@@ -54,8 +51,6 @@ ProcessConfig = ANTLER
 #include plug_uSimMarine.moos
 
 #include plug_pRangeEvent.moos
-
-#include plug_pBotDialog.moos
 
 ProcessConfig = pNodeReportParse
 {
